@@ -1,23 +1,25 @@
 import { Module, Global } from '@nestjs/common';
 import { Pool } from 'pg';
-import { env } from 'process';
 
 export const PG_CONNECTION = 'PG_CONNECTION';
 
-const dbProvider = {
-  provide: PG_CONNECTION,
-  useValue: new Pool({
-    user: env.DB_USER || 'postgres',
-    host: env.DB_HOST || '192.168.0.89',
-    database: env.DB_NAME || 'polifans_database',
-    password: env.DB_PASS || '12Path12.',
-    port: env.DB_PORT ? parseInt(env.DB_PORT) : 5432,
-  }),
-};
-
-@Global() // Makes the connection available everywhere without re-importing
+@Global()
 @Module({
-  providers: [dbProvider],
+  providers: [
+    {
+      provide: PG_CONNECTION,
+      useFactory: () => {
+        // useFactory is better because it allows for logic before returning the object
+        return new Pool({
+          user: process.env.DB_USER || 'postgres',
+          host: process.env.DB_HOST || '192.168.0.89',
+          database: process.env.DB_NAME || 'polifans_database',
+          password: process.env.DB_PASS || '12Path12.',
+          port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
+        });
+      },
+    },
+  ],
   exports: [PG_CONNECTION],
 })
 export class DatabaseModule {}
