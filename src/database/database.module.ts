@@ -12,7 +12,7 @@ export const PG_CONNECTION = 'PG_CONNECTION';
         // useFactory is better because it allows for logic before returning the object
         return new Pool({
           user: process.env.DB_USER || 'postgres',
-          host: process.env.DB_HOST || '192.168.0.89',
+          host: process.env.DB_HOST || 'localhost',
           database: process.env.DB_NAME || 'polifans_database',
           password: process.env.DB_PASS || '12Path12.',
           port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
