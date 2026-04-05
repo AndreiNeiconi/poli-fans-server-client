@@ -1,12 +1,13 @@
 import { Injectable, Inject, ConflictException } from '@nestjs/common';
 import { PG_CONNECTION } from '../database/database.module';
 import * as bcrypt from 'bcrypt';
+import { CreateUserDto } from './dto/create-usere.dto';
 
 @Injectable()
 export class UsersService {
   constructor(@Inject(PG_CONNECTION) private conn: any) {}
 
-  async create(userData: any) {
+  async create(userData: CreateUserDto) {
     const { first_name, last_name, username, email, password } = userData;
 
     // Hash the password for security
@@ -31,5 +32,10 @@ export class UsersService {
       }
       throw err;
     }
-  }
+    }
+    async findOne(username: string) {
+        const qurry = 'SELECT * FROM user_table WHERE username = $1';
+        const res = await this.conn.query(qurry, [username]);
+        return res.rows[0];
+    }
 }
