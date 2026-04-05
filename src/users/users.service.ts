@@ -1,4 +1,35 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject, ConflictException } from '@nestjs/common';
+import { PG_CONNECTION } from '../database/database.module';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
-export class UsersService {}
+export class UsersService {
+  constructor(@Inject(PG_CONNECTION) private conn: any) {}
+
+  async create(userData: any) {
+    const { first_name, last_name, username, email, password } = userData;
+
+    // Hash the password for security
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+
+    try {
+      const query = `
+        INSERT INTO user_table (first_name, last_name, username, email, password_hash) 
+        VALUES ($1, $2, $3, $4, $5) 
+        RETURNING id, first_name, last_name, username, email, created_at
+      `;
+      
+      const values = [first_name, last_name, username, email, hash];
+      const res = await this.conn.query(query, values);
+      
+      return res.rows[0];
+    } catch (err: any) {
+      // Postgres error 23505 = Unique Violation (username or email taken)
+      if (err.code === '23505') {
+        throw new ConflictException('Username or Email already registered');
+      }
+      throw err;
+    }
+  }
+}

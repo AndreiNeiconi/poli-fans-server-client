@@ -1,16 +1,17 @@
 import { Module, Global } from '@nestjs/common';
 import { Pool } from 'pg';
+import { env } from 'process';
 
 export const PG_CONNECTION = 'PG_CONNECTION';
 
 const dbProvider = {
   provide: PG_CONNECTION,
   useValue: new Pool({
-    user: 'postgres',
-    host: '192.168.0.89',
-    database: 'polifans_database',
-    password: '12Path12.',
-    port: 5432,
+    user: env.DB_USER || 'postgres',
+    host: env.DB_HOST || '192.168.0.89',
+    database: env.DB_NAME || 'polifans_database',
+    password: env.DB_PASS || '12Path12.',
+    port: env.DB_PORT ? parseInt(env.DB_PORT) : 5432,
   }),
 };
 
