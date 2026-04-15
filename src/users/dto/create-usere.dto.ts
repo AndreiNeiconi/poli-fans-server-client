@@ -14,5 +14,5 @@ export class CreateUserDto {
   email?: string;
   @IsString()
   @MinLength(8)
-  password?: string; // Plain text from the request, we hash it in the service
+  password_hash?: string; // Plain text from the request, we hash it in the service
 }

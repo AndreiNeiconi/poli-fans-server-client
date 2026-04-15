@@ -8,11 +8,11 @@ export class UsersService {
   constructor(@Inject(PG_CONNECTION) private conn: any) {}
 
   async create(userData: CreateUserDto) {
-    const { first_name, last_name, username, email, password } = userData;
+    const { first_name, last_name, username, email, password_hash } = userData;
 
     // Hash the password for security
     const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt);
+    const hash = await bcrypt.hash(password_hash, salt);
 
     try {
       const query = `
@@ -33,9 +33,10 @@ export class UsersService {
       throw err;
     }
     }
-    async findOne(username: string) {
-        const qurry = 'SELECT * FROM user_table WHERE username = $1';
-        const res = await this.conn.query(qurry, [username]);
-        return res.rows[0];
-    }
+    async findOne(identifier: string) {
+  // We check if the typed string matches the username OR the email
+  const query = 'SELECT * FROM user_table WHERE username = $1 OR email = $1';
+  const res = await this.conn.query(query, [identifier]);
+  return res.rows[0];
+}
 }
