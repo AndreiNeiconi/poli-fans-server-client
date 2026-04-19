@@ -8,6 +8,8 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Type } from 'class-transformer';
+import { FileManagerModule } from './file-manager/file-manager.module';
+import { FileManagerModule } from './file-manager/file-manager.module';
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { Type } from 'class-transformer';
       synchronize: true, // Set to false in production
     })
     
-    ,ProfilesModule, UsersModule, DatabaseModule, AuthModule],
+    ,ProfilesModule, UsersModule, DatabaseModule, AuthModule, FileManagerModule],
   controllers: [AppController],
   providers: [AppService],
 })
