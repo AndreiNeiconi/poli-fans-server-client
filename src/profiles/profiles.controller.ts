@@ -7,7 +7,7 @@ import { AuthGuard } from '../auth/auth.guard';
 @Controller('profiles')
 export class ProfilesController {
     constructor(private readonly profilesService: ProfilesService) { }
-    @Get('profiles')
+    @Get()
     @UseGuards(AuthGuard)
     async getProfile(@Req() req: any) {
         
