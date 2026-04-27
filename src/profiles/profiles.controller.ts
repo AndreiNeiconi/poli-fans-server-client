@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Query,Delete,HttpCode,HttpStatus, UseGuards, Req } from '@nestjs/common';
+import {  Controller, Get, Param, Post, Put, Query,Delete,HttpCode,HttpStatus, UseGuards, Req, Body } from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfilesDto } from './dto/update-profile.dto';
 import { ProfilesService } from './profiles.service';
@@ -14,6 +14,18 @@ export class ProfilesController {
         const userId = req.user.id;
         return this.profilesService.getProfile(userId);
     }
+    @Put()
+    @UseGuards(AuthGuard)
+    async updateProfile(@Req() req:any,@Body() updateData:any) {
+        const userId = req.user.id;
+
+        return this.updateProfile(userId, updateData);
+
+    
+
+
+    }
+
 
 
 }
