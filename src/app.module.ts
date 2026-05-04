@@ -21,7 +21,7 @@ import { Type } from 'class-transformer';
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       autoLoadEntities: true,
-      synchronize: true, // Set to false in production
+      synchronize: false,
     })
     
     ,ProfilesModule, UsersModule, DatabaseModule, AuthModule],
