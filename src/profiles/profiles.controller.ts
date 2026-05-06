@@ -19,7 +19,7 @@ export class ProfilesController {
     async updateProfile(@Req() req:any,@Body() updateData:any) {
         const userId = req.user.id;
 
-        return this.updateProfile(userId, updateData);
+        return this.profilesService.updateProfile(userId, updateData);
 
     
 
