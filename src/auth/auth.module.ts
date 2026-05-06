@@ -8,7 +8,7 @@ import { AuthController } from './auth.controller';
   imports: [UsersModule,JwtModule.register({
       global: true,
       secret: process.env.SECRET_JWT,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '1d' },
     }),],
   providers: [AuthService],
   controllers: [AuthController],
