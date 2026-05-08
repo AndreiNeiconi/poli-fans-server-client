@@ -49,7 +49,7 @@ cd polifans-server-client
 npm install
 
 ```
-##2. Configurare Variabile de Mediu:
+**2. Configurare Variabile de Mediu:**
 Creează un fișier .env în rădăcina proiectului backend:
 ```bash
 DB_HOST=localhost
@@ -60,9 +60,18 @@ DB_NAME=polifans
 JWT_SECRET=secret_cheie_complexa
 ```
 
-3. Server comand
+**3. Server comand**
+```bash
 npm run start:dev
 # Serverul va porni implicit pe http://localhost:3000
----
-3. Migrarea Bazei de Date:
+```
+**4. Migrarea Bazei de Date:**
 Rulează următoarele scripturi în instanța ta de PostgreSQL:
+```SQL
+-- Creare View pentru agregarea datelor de profil
+CREATE OR REPLACE VIEW user_display_profiles AS
+SELECT u.id, u.full_name, p.headline, p.bio, p.skills, p.posts_count
+FROM user_table u
+JOIN user_profiles p ON u.id = p.id;
+
+```
