@@ -75,3 +75,20 @@ FROM user_table u
 JOIN user_profiles p ON u.id = p.id;
 
 ```
+Partea 2: Frontend-ul (Angular)
+1. Clonare și instalare:
+Deschide un terminal nou (păstrând backend-ul activ) și rulează:
+```bash
+git clone [https://github.com/neiconidotdev/poli-fans-frontend.git](https://github.com/neiconidotdev/poli-fans-frontend.git)
+cd poli-fans-frontend
+npm install
+```
+2. Configurare Rețea / Mediu:
+Asigură-te că fișierul src/environments/environment.development.ts este configurat cu IP-ul corect pentru a evita erorile de tip ERR_CONNECTION_REFUSED:
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: '[http://192.168.0.89:3000](http://192.168.0.89:3000)' // Înlocuiește cu IP-ul tău local sau localhost
+};
+```
+
