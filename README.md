@@ -119,5 +119,5 @@ Creează un Branch (git checkout -b feature/AmazingFeature).
 Commit modificările (git commit -m 'Add some AmazingFeature').
 Push către Branch (git push origin feature/AmazingFeature).
 Deschide un Pull Request.
-##👤 **Autor**
+## 👤 **Autor**
 Andrei - Full Stack Developer - GitHub Profile
