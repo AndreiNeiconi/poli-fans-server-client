@@ -47,8 +47,9 @@ Deoarece proiectul este împărțit în două repository-uri distincte, trebuie 
 git clone https://github.com/neiconidotdev/polifans-server-client.git
 cd polifans-server-client
 npm install
+
 ```
-2. Configurare Variabile de Mediu:
+##2. Configurare Variabile de Mediu:
 Creează un fișier .env în rădăcina proiectului backend:
 ```bash
 DB_HOST=localhost
