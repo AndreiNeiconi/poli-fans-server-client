@@ -44,8 +44,8 @@ Deoarece proiectul este împărțit în două repository-uri distincte, trebuie 
 
 **1. Clonare și instalare:**
 ```bash
-git clone [https://github.com/neiconidotdev/poli-fans-backend.git](https://github.com/neiconidotdev/poli-fans-backend.git)
-cd poli-fans-backend
+git clone [https://github.com/neiconidotdev/poli-fans-backend.git](https://github.com/neiconidotdev/poli-fans-server-client.git)
+cd polifans-server-client
 npm install
 2. Configurare Variabile de Mediu:
 Creează un fișier .env în rădăcina proiectului backend:
