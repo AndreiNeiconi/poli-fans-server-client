@@ -61,4 +61,6 @@ JWT_SECRET=secret_cheie_complexa
 3. Server comand
 npm run start:dev
 # Serverul va porni implicit pe http://localhost:3000
-
+---
+3. Migrarea Bazei de Date:
+Rulează următoarele scripturi în instanța ta de PostgreSQL:
