@@ -47,8 +47,18 @@ Deoarece proiectul este împărțit în două repository-uri distincte, trebuie 
 git clone [https://github.com/neiconidotdev/poli-fans-backend.git](https://github.com/neiconidotdev/poli-fans-backend.git)
 cd poli-fans-backend
 npm install
+2. Configurare Variabile de Mediu:
+Creează un fișier .env în rădăcina proiectului backend:
+--
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=neiconidotdev
+DB_PASSWORD=parola_ta
+DB_NAME=polifans
+JWT_SECRET=secret_cheie_complexa
+--
 
-**2. Server comand
+3. Server comand
 npm run start:dev
 # Serverul va porni implicit pe http://localhost:3000
 
