@@ -92,7 +92,7 @@ export const environment = {
 };
 ```
 
-##**Exemplu Request PUT:**
+## **Exemplu Request PUT:**
 
 ```json
 {
@@ -102,17 +102,17 @@ export const environment = {
 }
 ```
 
-##**Securitate și Performanță**
+## **Securitate și Performanță**
 Decuplare Arhitecturală: Separarea clientului de server previne scurgerea datelor sensibile de configurare și permite scalarea independentă a modulelor.
 JWT Guards: Toate rutele sensibile din NestJS sunt protejate de AuthGuard, care validează VIP pass-ul înainte de a permite accesul la baza de date.
 SQL Parameterization: Prevenirea atacurilor SQL Injection prin utilizarea query-urilor parametrizate ($1, $2, $3).
 Database Views: Optimizarea performanței de citire prin pre-calcularea JOIN-urilor complexe la nivelul PostgreSQL.
-##🛣️ **Roadmap**
+## 🛣️ **Roadmap**
 [ ] Implementare endpoint-uri dedicate pentru "My Work" (extragere postări din baza de date).
 [ ] Implementare Chat în timp real via WebSockets (Socket.io).
 [ ] Încărcarea imaginilor reale către un serviciu de stocare S3 (înlocuirea reprezentării Base64 din frontend).
 [ ] Dark Mode toggle.
-##🤝 **Contribuții**
+## 🤝 **Contribuții**
 Dacă dorești să contribui, te rugăm să specifici clar pentru care repository (Frontend sau Backend) trimiți modificările:
 Fork repository-ului corespunzător.
 Creează un Branch (git checkout -b feature/AmazingFeature).
