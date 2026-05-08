@@ -109,9 +109,13 @@ SQL Parameterization: Prevenirea atacurilor SQL Injection prin utilizarea query-
 Database Views: Optimizarea performanței de citire prin pre-calcularea JOIN-urilor complexe la nivelul PostgreSQL.
 ## 🛣️ **Roadmap**
 [ ] Implementare endpoint-uri dedicate pentru "My Work" (extragere postări din baza de date).
+
 [ ] Implementare Chat în timp real via WebSockets (Socket.io).
+
 [ ] Încărcarea imaginilor reale către un serviciu de stocare S3 (înlocuirea reprezentării Base64 din frontend).
+
 [ ] Dark Mode toggle.
+
 ## 🤝 **Contribuții**
 Dacă dorești să contribui, te rugăm să specifici clar pentru care repository (Frontend sau Backend) trimiți modificările:
 Fork repository-ului corespunzător.
