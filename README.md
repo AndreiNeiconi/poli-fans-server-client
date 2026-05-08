@@ -92,3 +92,12 @@ export const environment = {
 };
 ```
 
+#**Exemplu Request PUT:**
+
+```json
+{
+  "headline": "Student Inginerie Mecanică",
+  "bio": "Pasionat de proiectare 3D și AutoCAD.",
+  "skills": "AutoCAD, SolidWorks, Python"
+}
+```
