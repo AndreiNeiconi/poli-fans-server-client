@@ -5,30 +5,57 @@ import { UpdateFilemanagerDto } from './dto/update-filemanager.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import 'multer';
 import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { extname,join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import { errorContext } from 'rxjs/internal/util/errorContext';
+import { error } from 'console';
+import * as fs from 'fs';
+
 
 @Controller('filemanager')
 export class FilemanagerController {
   constructor(private readonly filemanagerService: FilemanagerService) {}
 
+  @Post('upload')
   @UseInterceptors(FileInterceptor('file', {
-    // Aici se trec opțiunile de storage
     storage: diskStorage({
-      destination: '/home/neiconidotdev/PoliFans_data', // Directorul de destinație
+      // Funcția destination determină dinamic unde salvăm fișierul
+      destination: (req, file, cb) => {
+        const rootPath = '/home/neiconidotdev/PoliFans_data';
+        
+        // Luăm folderul din query parameter (ex: ?folder=users)
+        // Dacă nu e specificat, folosim 'Shared' ca fallback
+        const folderHint = (req.query.folder as string) || 'Shared';
+        
+        // Mapăm indiciul către structura ta de foldere
+        let subFolder = 'Shared/media';
+        if (folderHint.toLowerCase() === 'users') subFolder = 'Users/media';
+        if (folderHint.toLowerCase() === 'channels') subFolder = 'Channels/media';
+
+        const finalPath = join(rootPath, subFolder);
+
+        // Verificăm dacă folderul există, dacă nu, îl creăm recursiv
+        if (!fs.existsSync(finalPath)) {
+          fs.mkdirSync(finalPath, { recursive: true });
+        }
+
+        cb(null, finalPath);
+      },
       filename: (req, file, cb) => {
-        // Generare nume unic: timestamp + extensie originală
-        const randomName = uuidv4();
-        cb(null, `${randomName}${extname(file.originalname)}`);
+        // Generăm un nume unic păstrând extensia originală
+        const uniqueName = `${uuidv4()}${extname(file.originalname)}`;
+        cb(null, uniqueName);
       },
     }),
-    // Opțional: Limite de mărime
-    limits: {
-      fileSize: 1024 * 1024 * 5, // 5MB
-    },
+    limits: { fileSize: 1024 * 1024 * 5 }, // Limită 5MB
   }))
-  @Post()
-  create(@UploadedFile() file: Express.Multer.File) {
+  async create(@UploadedFile() file: Express.Multer.File) {
+    if (!file) {
+      throw new error('Fișierul lipsește din cerere!');
+    }
+
+    // Aici trimitem metadatele către serviciu pentru a le salva în PostgreSQL
+    // Notă: Momentan trimitem doar fișierul, va trebui să adaugi și userId după Auth
     return this.filemanagerService.create(file);
   }
 
