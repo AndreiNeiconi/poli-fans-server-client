@@ -8,7 +8,10 @@ export class ProfilesService {
     async getProfile(userId: number) {
         const query = 'SELECT * FROM user_profiles WHERE id = $1';
         const res = await this.conn.query(query, [userId]);
-        return res.rows[0];
+        if (!res.rows[0]) { 
+            console.log("nothing found")
+        }
+        return {message:"Test"}
     }
     async updateProfile(userId: number, data: any) {
         // 1. Write the SQL UPDATE statement with parameterized inputs ($1, $2, etc.)
