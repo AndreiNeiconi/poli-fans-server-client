@@ -17,7 +17,7 @@ export class ProfilesController {
     @Put()
     @UseGuards(AuthGuard)
     async updateProfile(@Req() req:any,@Body() updateData:any) {
-        const userId = req.user.id;
+        const userId = req.user.sub;
 
         return this.profilesService.updateProfile(userId, updateData);
 
