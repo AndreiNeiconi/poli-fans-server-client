@@ -6,7 +6,7 @@ export class ProfilesService {
     constructor(@Inject(PG_CONNECTION) private conn: any) { }
     
     async getProfile(userId: number) {
-        const query = 'SELECT * FROM user_display_profiles WHERE id = $1';
+        const query = 'SELECT * FROM user_profiles WHERE id = $1';
         const res = await this.conn.query(query, [userId]);
         return res.rows[0];
     }
@@ -42,6 +42,12 @@ export class ProfilesService {
 
         // 3. Execute the query
         const res = await this.conn.query(query, values);
+        // DEBUG: Vezi dacă Postgres a modificat ceva
+    console.log(`Rows affected: ${res.rowCount}`); 
+    
+    if (res.rowCount === 0) {
+        console.warn(`Atenție: Niciun rând nu a fost găsit cu ID-ul ${userId}`);
+    }
         return res.rows[0];
     }
 }
