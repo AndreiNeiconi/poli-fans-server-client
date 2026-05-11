@@ -27,6 +27,12 @@ export class ProfilesService {
             WHERE id = $8
             RETURNING *;
         `;
+        let skillsArray = [];
+    if (typeof data.skills === 'string') {
+        skillsArray = data.skills.split(',').map(s => s.trim()).filter(s => s !== '');
+    } else if (Array.isArray(data.skills)) {
+        skillsArray = data.skills;
+    }
 
         // 2. Map the Angular data to the $ variables
         const values = [
@@ -35,7 +41,7 @@ export class ProfilesService {
             data.date_of_birth,
             data.profile_picture_id, 
             data.cover_photo_id, 
-            data.skills, 
+            data.skillsArray, 
             data.updated_at, 
             userId // This is $8 in the WHERE clause
         ];
