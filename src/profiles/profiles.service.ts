@@ -6,7 +6,7 @@ export class ProfilesService {
     constructor(@Inject(PG_CONNECTION) private conn: any) { }
     
     async getProfile(userId: number) {
-        const query = 'SELECT * FROM user_profiles WHERE id = $1';
+        const query = 'SELECT * FROM user_display_profiles WHERE id = $1';
         const res = await this.conn.query(query, [userId]);
         if (!res.rows[0]) { 
             console.log("nothing found")
