@@ -11,7 +11,7 @@ export class ProfilesController {
     @UseGuards(AuthGuard)
     async getProfile(@Req() req: any) {
         
-        const userId = req.user.id;
+        const userId = req.user.sub;
         return this.profilesService.getProfile(userId);
     }
     @Put()

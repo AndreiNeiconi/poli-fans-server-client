@@ -14,9 +14,6 @@ export class ProfilesService {
         return res.rows[0];
     }
     async updateProfile(userId: number, data: any) {
-        // 1. Write the SQL UPDATE statement with parameterized inputs ($1, $2, etc.)
-        // The "RETURNING *" at the end is a brilliant PostgreSQL trick that immediately 
-        // hands you back the newly saved row so you don't have to run a SELECT query afterward!
         const query = `
             UPDATE user_profiles 
             SET 
