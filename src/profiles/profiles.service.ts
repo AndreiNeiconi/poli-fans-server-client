@@ -11,7 +11,7 @@ export class ProfilesService {
         if (!res.rows[0]) { 
             console.log("nothing found")
         }
-        return {message:"Test"}
+        return res.row[0];
     }
     async updateProfile(userId: number, data: any) {
         // 1. Write the SQL UPDATE statement with parameterized inputs ($1, $2, etc.)
