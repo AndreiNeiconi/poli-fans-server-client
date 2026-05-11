@@ -33,8 +33,8 @@ export class ProfilesService {
             data.headline, 
             data.bio, 
             data.date_of_birth,
-            data.profile_picture_url, 
-            data.cover_photo_url, 
+            data.profile_picture_id, 
+            data.cover_photo_id, 
             data.skills, 
             data.updated_at, 
             userId // This is $8 in the WHERE clause
