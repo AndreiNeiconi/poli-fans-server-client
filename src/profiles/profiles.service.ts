@@ -20,8 +20,8 @@ export class ProfilesService {
                 headline = $1, 
                 bio = $2, 
                 date_of_birth = $3,
-                profile_picture_url = $4, 
-                cover_photo_url = $5, 
+                profile_picture_id = $4, 
+                cover_photo_id = $5, 
                 skills = $6, 
                 updated_at = $7
             WHERE id = $8
