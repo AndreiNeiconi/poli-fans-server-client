@@ -6,7 +6,7 @@ import { PG_CONNECTION } from '../database/database.module';
 @Injectable()
 export class FilemanagerService {
   constructor(@Inject(PG_CONNECTION) private conn: any){}
-  async create(file: Express.Multer.File) {
+  async create(file: Express.Multer.File,userId:Number) {
     const qurry = `
     INSERT INTO media_files (original_name, internal_name, file_path, mime_type, size_bytes, uploaded_by)
     VALUES ($1, $2, $3, $4, $5, $6)

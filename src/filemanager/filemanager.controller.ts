@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UseGuards, Req } from '@nestjs/common';
 import { FilemanagerService } from './filemanager.service';
 import { CreateFilemanagerDto } from './dto/create-filemanager.dto';
 import { UpdateFilemanagerDto } from './dto/update-filemanager.dto';
@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { errorContext } from 'rxjs/internal/util/errorContext';
 import { error } from 'console';
 import * as fs from 'fs';
+import { AuthGuard } from '../auth/auth.guard';
 
 
 @Controller('filemanager')
@@ -17,6 +18,7 @@ export class FilemanagerController {
   constructor(private readonly filemanagerService: FilemanagerService) {}
 
   @Post('upload')
+  @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
       // Funcția destination determină dinamic unde salvăm fișierul
@@ -49,14 +51,14 @@ export class FilemanagerController {
     }),
     limits: { fileSize: 1024 * 1024 * 5 }, // Limită 5MB
   }))
-  async create(@UploadedFile() file: Express.Multer.File) {
+  async create(@UploadedFile() file: Express.Multer.File,@Req() req:any) {
     if (!file) {
       throw new error('Fișierul lipsește din cerere!');
     }
 
     // Aici trimitem metadatele către serviciu pentru a le salva în PostgreSQL
-    // Notă: Momentan trimitem doar fișierul, va trebui să adaugi și userId după Auth
-    return this.filemanagerService.create(file);
+    const userId = req.user.sub
+    return this.filemanagerService.create(file,userId);
   }
 
   @Get()
