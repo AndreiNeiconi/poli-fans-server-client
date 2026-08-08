@@ -8,7 +8,6 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Type } from 'class-transformer';
-import { FilemanagerModule } from './filemanager/filemanager.module';
 import { FileUploadModule } from './file-upload/file-upload.module';
 
 
