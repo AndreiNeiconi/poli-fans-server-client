@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UseGuards, Req, BadRequestException } from '@nestjs/common';
 import { FilemanagerService } from './filemanager.service';
 import { CreateFilemanagerDto } from './dto/create-filemanager.dto';
 import { UpdateFilemanagerDto } from './dto/update-filemanager.dto';
@@ -53,7 +53,7 @@ export class FilemanagerController {
   }))
   async create(@UploadedFile() file: Express.Multer.File,@Req() req:any) {
     if (!file) {
-      throw new error('Fișierul lipsește din cerere!');
+      throw new BadRequestException('Fișierul lipsește din cerere!');
     }
 
     // Aici trimitem metadatele către serviciu pentru a le salva în PostgreSQL
