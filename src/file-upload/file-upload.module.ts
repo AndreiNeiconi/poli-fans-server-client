@@ -3,6 +3,7 @@ import { FileUploadService } from './file-upload.service';
 import { FileUploadController } from './file-upload.controller';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import { randomUUID, UUID } from 'crypto';
 
 
 
@@ -10,11 +11,21 @@ import { diskStorage } from 'multer';
   imports:[
     MulterModule.register({
       storage: diskStorage({
-        destination:'/home/neiconidotdev/uploads',
-        filename: (req,file,cb) => {
-          const filename = `${Date.now()}-${file.originalname}`;
-          cb(null,filename)
+        
+        destination:(req,file,cb) => {
+          const purpose = req.body.purpose;
+          
+         const path = `/home/neiconidotdev/uploads/${purpose}`;
+         cb(null,path);
         },
+        filename: (req,file,cb) => {
+          const uuid = randomUUID;
+          
+          const filename = `${uuid}${Date.now()}-${file.originalname}`;
+          cb(null,filename)
+        
+        }
+        
       }),
     }),
   ],
