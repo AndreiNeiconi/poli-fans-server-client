@@ -18,7 +18,7 @@ export class FileUploadService {
             created_at = $7
             `
         const values = [
-            file.filename.slice(0,31),
+            file.filename,
             file.originalname,
             file.filename,
             file.destination,

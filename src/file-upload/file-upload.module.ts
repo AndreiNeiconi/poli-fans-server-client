@@ -19,9 +19,8 @@ import { randomUUID, UUID } from 'crypto';
          cb(null,path);
         },
         filename: (req,file,cb) => {
-          const uuid = randomUUID;
           
-          const filename = `${uuid}${Date.now()}-${file.originalname}`;
+          const filename = `${Date.now()}-${file.originalname}`;
           cb(null,filename)
         
         }
