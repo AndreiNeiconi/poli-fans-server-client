@@ -30,6 +30,6 @@ export class FileUploadService {
         const res = await this.conn.query(qurry,values)
             console.log(`Rows affected: ${res.rowCount}`);
 
-        return {message: 'File uploaded successfully',filePath:file.path}
+        return {message: 'File uploaded successfully',filePath:file.path,res}
     }
 }
