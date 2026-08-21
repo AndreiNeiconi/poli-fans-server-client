@@ -9,7 +9,6 @@ export class FileUploadController {
   constructor(private readonly fileUploadService: FileUploadService) {}
 
   @Post('upload')
-  @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('file'))
 
   async uploadFile(
