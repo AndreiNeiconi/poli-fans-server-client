@@ -24,7 +24,7 @@ export class FileUploadController {
 
     //validate file type
     const allowedMimeTypes = ['image/jpeg','image/png','application/pdf'];
-    const userId = req.user.id;
+    const userId = req.user.sub;
 
     if(!allowedMimeTypes.includes(file.mimetype)){
       throw new BadRequestException('invalid file type');
