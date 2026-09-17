@@ -8,16 +8,9 @@ export class FileUploadService {
 
 
     async handleFileUpload(file: Express.Multer.File,purpose: MediaPurpose,userID){
-        const qurry = `UPDATE media_files 
-        SET 
-            id = $1,
-            original_name = $2,
-            internal_name $3,
-            file_path = $4,
-            mime_type = $5,
-            size_bytes = $6,
-            uploaded_by = $7,
-            created_at = $8
+        const qurry = `INSERT INTO media_files 
+        (original_name, internal_name, file_path,
+    mime_type, size_bytes, uploaded_by, created_at) VALUES ($1, $2, $3, $4, $5, $6, NOW())
             `
         const values = [
             file.filename,
@@ -27,7 +20,6 @@ export class FileUploadService {
             file.mimetype,
             file.size,
             userID,
-            Date.now()
             
         ];
         const res = await this.conn.query(qurry,values)
