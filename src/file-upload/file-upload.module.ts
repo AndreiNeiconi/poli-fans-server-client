@@ -4,6 +4,7 @@ import { FileUploadController } from './file-upload.controller';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { randomUUID, UUID } from 'crypto';
+import { mkdirSync } from 'fs';
 
 
 
@@ -16,6 +17,7 @@ import { randomUUID, UUID } from 'crypto';
           const purpose = req.body.purpose;
           
          const path = `/home/neiconidotdev/uploads/${purpose}`;
+         mkdirSync(path,{recursive:true})
          cb(null,path);
         },
         filename: (req,file,cb) => {

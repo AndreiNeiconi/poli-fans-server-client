@@ -1,12 +1,13 @@
 import { Inject, Injectable, Query } from '@nestjs/common';
 import { PG_CONNECTION } from '../database/database.module';
+import { MediaPurpose } from './dto/general.dto';
 
 @Injectable()
 export class FileUploadService {
     constructor(@Inject(PG_CONNECTION) private conn:any){}
 
 
-    async handleFileUpload(file: Express.Multer.File,purpose){
+    async handleFileUpload(file: Express.Multer.File,purpose: MediaPurpose,userID){
         const qurry = `UPDATE media_files 
         SET 
             id = $1,
@@ -15,7 +16,8 @@ export class FileUploadService {
             file_path = $4,
             mime_type = $5,
             size_bytes = $6,
-            created_at = $7
+            uploaded_by = $7
+            created_at = $8
             `
         const values = [
             file.filename,
@@ -24,6 +26,7 @@ export class FileUploadService {
             file.destination,
             file.mimetype,
             file.size,
+            userID,
             Date.now()
             
         ];

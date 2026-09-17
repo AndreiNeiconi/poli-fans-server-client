@@ -3,6 +3,7 @@ import { FileUploadService } from './file-upload.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '../auth/auth.guard';
 import { MediaPurpose } from './dto/general.dto';
+import { UsersService } from '../users/users.service';
 
 @Controller('file-upload')
 export class FileUploadController {
@@ -14,6 +15,7 @@ export class FileUploadController {
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
     @Body('purpose') purpose:MediaPurpose,
+    @Body("userid") userid:any,
   ) {
     if(!file){
       throw new BadRequestException('no file uploaded');
@@ -22,6 +24,7 @@ export class FileUploadController {
 
     //validate file type
     const allowedMimeTypes = ['image/jpeg','image/png','application/pdf'];
+
     if(!allowedMimeTypes.includes(file.mimetype)){
       throw new BadRequestException('invalid file type');
     }
@@ -31,6 +34,6 @@ export class FileUploadController {
       throw new BadRequestException('File is too large!!!')
     }
 
-    return this.fileUploadService.handleFileUpload(file,purpose);
+    return this.fileUploadService.handleFileUpload(file,purpose,userid);
   }
 }
