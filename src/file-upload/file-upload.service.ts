@@ -16,7 +16,7 @@ export class FileUploadService {
             file_path = $4,
             mime_type = $5,
             size_bytes = $6,
-            uploaded_by = $7
+            uploaded_by = $7,
             created_at = $8
             `
         const values = [
