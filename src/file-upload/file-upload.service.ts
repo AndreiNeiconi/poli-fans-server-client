@@ -21,6 +21,7 @@ export class FileUploadService {
             userID,
             
         ];
+        console.log(userID)
         const res = await this.conn.query(qurry,values)
             console.log(`Rows affected: ${res.rowCount}`);
 
