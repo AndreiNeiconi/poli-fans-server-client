@@ -13,7 +13,6 @@ export class FileUploadService {
     mime_type, size_bytes, uploaded_by, created_at) VALUES ($1, $2, $3, $4, $5, $6, NOW())
             `
         const values = [
-            file.filename,
             file.originalname,
             file.filename,
             file.destination,
