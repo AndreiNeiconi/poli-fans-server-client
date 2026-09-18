@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Type } from 'class-transformer';
 import { FileUploadModule } from './file-upload/file-upload.module';
+import { ImagUrlSystemModule } from './imag-url-system/imag-url-system.module';
 
 
 @Module({
@@ -25,8 +26,8 @@ import { FileUploadModule } from './file-upload/file-upload.module';
       synchronize: false,
     })
     
-    ,ProfilesModule, UsersModule, DatabaseModule, AuthModule, FileUploadModule],
+    ,ProfilesModule, UsersModule, DatabaseModule, AuthModule, FileUploadModule, ImagUrlSystemModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ImageUrlProcService],
 })
 export class AppModule {}
