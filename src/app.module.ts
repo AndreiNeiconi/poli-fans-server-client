@@ -28,6 +28,6 @@ import { ImagUrlSystemModule } from './imag-url-system/imag-url-system.module';
     
     ,ProfilesModule, UsersModule, DatabaseModule, AuthModule, FileUploadModule, ImagUrlSystemModule],
   controllers: [AppController],
-  providers: [AppService, ImageUrlProcService],
+  providers: [AppService],
 })
 export class AppModule {}
