@@ -6,7 +6,7 @@ export class ImagUrlSystemService {
     constructor(@Inject(PG_CONNECTION) private conn: any){}
 
     async getImg(mediaId: string) {
-        const query = 'SELECT file_path FROM media_files WHERE id = $1';
+        const query = 'SELECT file_path,mime_type FROM media_files WHERE id = $1';
         const res = await this.conn.query(query, [mediaId]);
         if (!res.rows[0]) { 
             console.log("No image was found")
