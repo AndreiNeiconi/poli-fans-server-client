@@ -4,7 +4,7 @@ import { Inject, Injectable, OnModuleInit, Query } from '@nestjs/common';
 @Injectable()
 export class UploadCleanupService implements OnModuleInit {
     constructor(@Inject(PG_CONNECTION) private conn: any ){}
-    
+
     async onModuleInit(): Promise<void> {
   console.log('Starting upload candidate scan');
 
@@ -31,7 +31,7 @@ export class UploadCleanupService implements OnModuleInit {
   const query = `
     SELECT id
     FROM media_files
-    WHERE created_at < NOW() - INTERVAL '1 day'
+    WHERE created_at < NOW() - INTERVAL '5 minutes'
       AND mime_type IN ('image/jpeg', 'image/png')
   `;
 
