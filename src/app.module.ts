@@ -10,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Type } from 'class-transformer';
 import { FileUploadModule } from './file-upload/file-upload.module';
 import { ImagUrlSystemModule } from './imag-url-system/imag-url-system.module';
+import { UploadCleanupService } from './upload_cleanup/upload_cleanup.service';
 
 
 @Module({
@@ -28,6 +29,6 @@ import { ImagUrlSystemModule } from './imag-url-system/imag-url-system.module';
     
     ,ProfilesModule, UsersModule, DatabaseModule, AuthModule, FileUploadModule, ImagUrlSystemModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, UploadCleanupService],
 })
 export class AppModule {}
