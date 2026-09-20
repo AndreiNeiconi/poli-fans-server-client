@@ -1,9 +1,20 @@
 import { PG_CONNECTION } from './../database/database.module';
-import { Inject, Injectable, Query } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit, Query } from '@nestjs/common';
 
 @Injectable()
-export class UploadCleanupService {
+export class UploadCleanupService implements OnModuleInit {
     constructor(@Inject(PG_CONNECTION) private conn: any ){}
+    
+    async onModuleInit(): Promise<void> {
+  console.log('Starting upload candidate scan');
+
+  try {
+    await this.findCleanupCandidates();
+  } catch (error) {
+    console.error('Upload candidate scan failed:', error);
+  }
+}
+
     clenup_candiate:string[] = [];
     async check_id_apperence(id:string){
         const qury = `SELECT profile_picture_id,cover_photo_id FROM user_profiles WHERE profile_picture_id = $1 OR cover_photo_id = $1`;
