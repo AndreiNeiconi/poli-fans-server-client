@@ -11,6 +11,7 @@ import { Type } from 'class-transformer';
 import { FileUploadModule } from './file-upload/file-upload.module';
 import { ImagUrlSystemModule } from './imag-url-system/imag-url-system.module';
 import { UploadCleanupService } from './upload_cleanup/upload_cleanup.service';
+import { PostModule } from './post/post.module';
 
 
 @Module({
@@ -27,7 +28,7 @@ import { UploadCleanupService } from './upload_cleanup/upload_cleanup.service';
       synchronize: false,
     })
     
-    ,ProfilesModule, UsersModule, DatabaseModule, AuthModule, FileUploadModule, ImagUrlSystemModule],
+    ,ProfilesModule, UsersModule, DatabaseModule, AuthModule, FileUploadModule, ImagUrlSystemModule, PostModule],
   controllers: [AppController],
   providers: [AppService, UploadCleanupService],
 })
