@@ -15,7 +15,7 @@ export class FileUploadService {
         const values = [
             file.originalname,
             file.filename,
-            `${file.destination}/${file.fieldname}`,
+            file.path,
             file.mimetype,
             file.size,
             userID,
