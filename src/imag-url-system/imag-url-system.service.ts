@@ -1,4 +1,4 @@
-import { BadRequestException, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Inject, Injectable, Query } from '@nestjs/common';
 import { PG_CONNECTION } from '../database/database.module';
 
 @Injectable()
@@ -18,5 +18,19 @@ export class ImagUrlSystemService {
             
         }
         return res.rows[0];
+    }
+    async profile_pic_id(id:string,profi_pic_id:string){
+        const query = 'UPDATE user_profiles SET profile_picture_id = $1 WHERE id= $2 RETURNING profile_picture_id';
+        const res = await this.conn.query(query,[profi_pic_id,id]);
+        if (res.rows.length === 0 ) { 
+            console.log("No matching id")
+            throw new HttpException(
+                'Not Found',
+                HttpStatus.NOT_FOUND,
+                
+            );
+            
+        }
+        
     }
 }

@@ -4,6 +4,7 @@ import { UpdateProfilesDto } from './dto/update-profile.dto';
 import { ProfilesService } from './profiles.service';
 import { AuthGuard } from '../auth/auth.guard';
 
+
 @Controller('profiles')
 export class ProfilesController {
     constructor(private readonly profilesService: ProfilesService) { }
@@ -16,10 +17,11 @@ export class ProfilesController {
     }
     @Put()
     @UseGuards(AuthGuard)
-    async updateProfile(@Req() req:any,@Body() updateData:any) {
+    async updateProfile(@Req() req:any,@Body() updateData:any,@Param('scope') scope:string) {
         const userId = req.user.sub;
 
         return this.profilesService.updateProfile(userId, updateData);
+
 
     
 

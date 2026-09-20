@@ -11,6 +11,7 @@ export class FileUploadService {
         const qurry = `INSERT INTO media_files 
         (original_name, internal_name, file_path,
     mime_type, size_bytes, uploaded_by, created_at) VALUES ($1, $2, $3, $4, $5, $6, NOW())
+    RETURNING id
             `
         const values = [
             file.originalname,
@@ -25,6 +26,9 @@ export class FileUploadService {
         const res = await this.conn.query(qurry,values)
             console.log(`Rows affected: ${res.rowCount}`);
 
-        return {message: 'File uploaded successfully',filePath:file.path,res}
+        return {
+            id: res.rows[0].id,
+            message:"File uploded succesfuly"
+        }
     }
 }
