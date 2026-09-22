@@ -29,5 +29,13 @@ export class PostService {
         
         
     }
+    async getPost(id:string){
+        const query = `SELECT create_at,title,content,id_post FROM posts WHERE id_user_post = $1 ORDER BY create_at DESC, id_post DESC`;
+        const res = await this.conn.query(query,[id])
+
+        return res.rows
+
+
+    }
 
 }
