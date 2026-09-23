@@ -48,7 +48,7 @@ FROM posts AS p
 JOIN user_table AS u
     ON p.id_user_post = u.id
 ORDER BY p.create_at DESC, p.id_post DESC;`;
-        const res = await this.conn.query(query,[id]);
+        const res = await this.conn.query(query);
 
         return res.rows;
     }
