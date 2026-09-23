@@ -37,5 +37,11 @@ export class PostService {
 
 
     }
+    async getFeed(id:string){
+        const query = `SELECT p.create_at,p.title,p.content,p.id_post,u.username FROM posts p JOIN users u ON p.id_user_post = u.id_user WHERE p.id_user_post IN (SELECT id_user_followed FROM followers WHERE id_user_follower = $1) ORDER BY p.create_at DESC, p.id_post DESC`;
+        const res = await this.conn.query(query,[id])
+
+        return res.rows
+    }
 
 }

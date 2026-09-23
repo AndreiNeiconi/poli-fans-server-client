@@ -2,7 +2,6 @@ import { Body, Controller, Get, Post, Put, Req, UseGuards } from '@nestjs/common
 import { PostService } from './post.service';
 import { AuthGuard } from '../auth/auth.guard';
 import { CreatePostDto } from './dto/create-post.dto';
-import { time } from 'console';
 
 @Controller('post')
 export class PostController {
@@ -20,5 +19,13 @@ export class PostController {
     const userId =  req.user.sub;
 
     return this.postService.getPost(userId);
+  }
+  @Get()
+  @UseGuards(AuthGuard)
+  async getFeed(@Req() req:any){
+    const userId =  req.user.sub;
+
+    return this.postService.getFeed(userId);
+
   }
 }
