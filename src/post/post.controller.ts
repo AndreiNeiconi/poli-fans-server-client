@@ -20,7 +20,7 @@ export class PostController {
 
     return this.postService.getPost(userId);
   }
-  @Get()
+  @Get('feed')
   @UseGuards(AuthGuard)
   async getFeed(@Req() req:any){
     const userId =  req.user.sub;
