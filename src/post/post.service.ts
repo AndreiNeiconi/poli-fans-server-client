@@ -43,10 +43,14 @@ export class PostService {
     p.title,
     p.content,
     p.create_at,
-    u.username
+    u.username,
+    u_p.profile_picture_id
 FROM posts AS p
 JOIN user_table AS u
     ON p.id_user_post = u.id
+LEFT JOIN user_profiles as u_p
+    ON u.id = u_p.id 
+
 ORDER BY p.create_at DESC, p.id_post DESC;`;
         const res = await this.conn.query(query);
 
