@@ -1,7 +1,7 @@
 import { Transform } from 'class-transformer';
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class CreatePostDto {
+export class CreateMediaPostDto {
   @Transform(({ value }) =>
     typeof value === 'string' ? value.trim() : value
   )
@@ -15,6 +15,10 @@ export class CreatePostDto {
   @IsString()
   @IsNotEmpty()
   content!: string;
-
+  @Transform(({value}) => 
+    typeof value === 'string' ? value.trim() : value
+  )
+  @IsString()
+  document_id!:string;
   
 }
