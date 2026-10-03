@@ -3,6 +3,7 @@ import { BadRequestException, HttpException, HttpStatus, Inject, Injectable, Int
 import { inspect } from 'util';
 import { PG_CONNECTION } from '../database/database.module';
 import { CreatePostDto } from './dto/create-post.dto';
+import { CreateMediaPostDto } from './dto/create-media-post.dto';
 
 @Injectable()
 export class PostService {
@@ -25,10 +26,32 @@ export class PostService {
         return {
             id_post: res.rows[0].id_post,
             message: 'Post created successfully',
-};
+        };
         
         
     }
+    async create_media_post(post:CreateMediaPostDto,id:string){
+        const query = `INSERT INTO posts (create_at,title,content,document_id,id_user_post) VALUES (NOW(), $1, $2, $3, $4 )
+    RETURNING id_post`;
+    const values = [
+            post.title,
+            post.content,
+            post.document_id,
+            id
+            
+        ];
+        const res = await this.conn.query(query,values)
+        if(!res.rows[0]){
+        
+            throw new InternalServerErrorException('Post could not be created');
+
+        }
+        return {
+            id_post: res.rows[0].id_post,
+            message: 'Post created successfully',
+        };
+    }
+
     async getPost(id:string){
         const query = `SELECT create_at,title,content,id_post FROM posts WHERE id_user_post = $1 ORDER BY create_at DESC, id_post DESC`;
         const res = await this.conn.query(query,[id])
