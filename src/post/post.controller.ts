@@ -4,11 +4,11 @@ import { AuthGuard } from '../auth/auth.guard';
 import { CreatePostDto } from './dto/create-post.dto';
 import { CreateMediaPostDto } from './dto/create-media-post.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { FileUploadService } from '../file-upload/file-upload.service';
+// import { FileUploadService } from '../file-upload/file-upload.service';
 
 @Controller('post')
 export class PostController {
-  constructor(private readonly postService: PostService,private fileUplod:FileUploadService) {}
+  constructor(private readonly postService: PostService) {}
   @Post()
   @UseGuards(AuthGuard)
   async create_text_only_post(@Req() req:any,@Body() post:CreatePostDto)
