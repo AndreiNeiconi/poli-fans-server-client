@@ -16,7 +16,7 @@ export class PostController {
     const  userId = req.user.sub;
     return this.postService.create_post(post,userId)
   }
-  @Post('/media-post')
+  @Post('media-post')
   @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   async create_media_post_(@Req() req:any,@UploadedFile() file: Express.Multer.File,@Body() post:CreateMediaPostDto){
