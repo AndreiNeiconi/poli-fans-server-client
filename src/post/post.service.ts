@@ -61,19 +61,22 @@ export class PostService {
 
     }
     async getFeed(id:string){
-        const query = `SELECT
+    const query = `SELECT
     p.id_post,
     p.title,
     p.content,
+    p.document_id,
     p.create_at,
     u.username,
-    u_p.profile_picture_id
+    u_p.profile_picture_id,
+    m_p.mime_type
 FROM posts AS p
 JOIN user_table AS u
     ON p.id_user_post = u.id
-LEFT JOIN user_profiles as u_p
-    ON u.id = u_p.id 
-
+LEFT JOIN user_profiles AS u_p
+    ON u.id = u_p.id
+LEFT JOIN media_files AS m_p
+    ON p.document_id = m_p.id
 ORDER BY p.create_at DESC, p.id_post DESC;`;
         const res = await this.conn.query(query);
 
