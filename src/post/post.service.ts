@@ -97,7 +97,12 @@ WHERE id_post = $1
 RETURNING id_post;
         `
         const res = await this.conn.query(query,[id_post,id_user]);
-        return res.rows ;
+        if(!res.rows[0]){
+            return res.rows[0] ;
+        }else{
+            throw new InternalServerErrorException("Post not deleted");
+        }
+        
     }
     
 
