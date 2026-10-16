@@ -96,7 +96,7 @@ WHERE id_post = $1
   AND deleted_at IS NULL
 RETURNING id_post;
         `
-        const res = await this.conn.query(query,[id_user,id_post]);
+        const res = await this.conn.query(query,[id_post,id_user]);
         return res.rows ;
     }
     
