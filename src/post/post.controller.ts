@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { PostService } from './post.service';
 import { AuthGuard } from '../auth/auth.guard';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -41,4 +41,17 @@ export class PostController {
     return this.postService.getFeed(userId);
 
   }
+  @Delete(':id')
+  @UseGuards(AuthGuard)
+async deletePost(
+  @Param('id') id: string,
+  @Req() req: any,
+) {
+  const userId = req.user.sub;
+  return this.postService.deletePost(
+    userId,
+    id
+  );
+}
+
 }
