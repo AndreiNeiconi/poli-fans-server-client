@@ -86,7 +86,7 @@ ORDER BY p.create_at DESC, p.id_post DESC
 
         return res.rows;
     }
-    async deletePost(id_user,id_post){
+    async deletePost(id_user:string,id_post:string){
         const query = `
             UPDATE posts
 SET deleted_at = NOW()
@@ -96,7 +96,7 @@ WHERE id_post = $1
 RETURNING id_post;
         `
         const res = await this.conn.query(query,[id_post,id_user]);
-        return res.row;
+        return res.rows;
     }
     
 
