@@ -87,6 +87,7 @@ ORDER BY p.create_at DESC, p.id_post DESC
         return res.rows;
     }
     async deletePost(id_user:string,id_post:string){
+        console.log(`id post:${id_post}, id user ${id_user}`);
         const query = `
             UPDATE posts
 SET deleted_at = NOW()
