@@ -91,7 +91,9 @@ WHERE id = $1
   AND user_id = $2
 RETURNING id;
         `
-        const res = await this.conn(query,[id_post,id_user]);
+        const res = await this.conn.query(query,[id_post,id_user]);
+        return res.row;
     }
+    
 
 }
