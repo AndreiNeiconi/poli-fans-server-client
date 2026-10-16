@@ -71,6 +71,7 @@ export class PostService {
     u_p.profile_picture_id,
     m_p.mime_type,
     m_p.original_name
+    p.deleted_at
 FROM posts AS p
 JOIN user_table AS u
     ON p.id_user_post = u.id
