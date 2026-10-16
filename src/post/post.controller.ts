@@ -49,8 +49,8 @@ async deletePost(
 ) {
   const userId = req.user.sub;
   return this.postService.deletePost(
-    id,
-    userId
+    userId,
+    id
   );
 }
 
