@@ -44,8 +44,8 @@ export class PostController {
   @Delete(':id')
   @UseGuards(AuthGuard)
 async deletePost(
-  @Req() req: any,
   @Param('id') id: string,
+  @Req() req: any,
 ) {
   const userId = req.user.sub;
   return this.postService.deletePost(
