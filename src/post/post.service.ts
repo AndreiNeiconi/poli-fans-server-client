@@ -78,7 +78,9 @@ LEFT JOIN user_profiles AS u_p
     ON u.id = u_p.id
 LEFT JOIN media_files AS m_p
     ON p.document_id = m_p.id
-ORDER BY p.create_at DESC, p.id_post DESC;`;
+WHERE deleted_at IS NULL
+ORDER BY p.create_at DESC, p.id_post DESC
+;`;
         const res = await this.conn.query(query);
 
         return res.rows;
@@ -87,9 +89,10 @@ ORDER BY p.create_at DESC, p.id_post DESC;`;
         const query = `
             UPDATE posts
 SET deleted_at = NOW()
-WHERE id = $1
-  AND user_id = $2
-RETURNING id;
+WHERE id_post = $1
+  AND id_user_post = $2
+  AND deleted_at IS NULL
+RETURNING id_post;
         `
         const res = await this.conn.query(query,[id_post,id_user]);
         return res.row;
