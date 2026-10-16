@@ -84,7 +84,7 @@ ORDER BY p.create_at DESC, p.id_post DESC
 ;`;
         const res = await this.conn.query(query);
 
-        return res.rows[0];
+        return res.rows;
     }
     async deletePost(id_user:string,id_post:string){
         const query = `
@@ -96,7 +96,7 @@ WHERE id_post = $1
 RETURNING id_post;
         `
         const res = await this.conn.query(query,[id_post,id_user]);
-        return res.rows[0];
+        return res.rows ;
     }
     
 
