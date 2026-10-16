@@ -1,5 +1,5 @@
 import { UUID } from 'crypto';
-import { BadRequestException, HttpException, HttpStatus, Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Inject, Injectable, InternalServerErrorException, Query } from '@nestjs/common';
 import { inspect } from 'util';
 import { PG_CONNECTION } from '../database/database.module';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -82,6 +82,16 @@ ORDER BY p.create_at DESC, p.id_post DESC;`;
         const res = await this.conn.query(query);
 
         return res.rows;
+    }
+    async deletePost(id_user,id_post){
+        const query = `
+            UPDATE posts
+SET deleted_at = NOW()
+WHERE id = $1
+  AND user_id = $2
+RETURNING id;
+        `
+        const res = await this.conn(query,[id_post,id_user]);
     }
 
 }
